@@ -1,0 +1,30 @@
+<ol class="breadcrumb">
+  <li class='active'>Step 1</li>
+  <li>Step 2</li>
+  <li>Step 3</li>
+  <li>Step 4</li>
+</ol>
+
+<%= form_for @user_wizard, as: :user_wizard, url: validate_step_wizard_path do |f| %>
+   <% if @user_wizard.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user_wizard.errors.count, "error") %> prohibited
+        this project from being saved:
+      </h2>
+      <ul>
+        <% @user_wizard.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag :current_step, 'step1' %>
+   <p>
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </p>
+
+  <%= f.submit 'Continue' %>
+<% end %>
